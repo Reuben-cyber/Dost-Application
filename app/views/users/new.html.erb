@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="signup.css">
+<div class="box" style="margin-top:-5vw;">
+  <div class="title-box">
+  <%= link_to root_path do %>
+  <%= image_tag "dostlogo.jpg",class:"title-box-img" %>
+  <%end%>
+    <p>DOST helps you connect with people with similar interests.</p>
+  </div>
+  <div class="form-box">
+  <%= form_with(model: @user, local: true) do |f| %>
+      <%= f.text_field :name, class: "form-box-input", placeholder:"Name"%>
+      <%= f.email_field :email, class: "form-box-input", placeholder:"Email"%>
+      <%= f.password_field :password, class: "form-box-input", placeholder:"Password"%>
+     <button onclick= "<%=f.submit %>Signup</button>
+    <% end %>
+    <hr>
+    <div class="create-btn">
+    <%=link_to 'Login', login_path,class:"nav-link" %>
+    </div>
+  </div>
+</div>
+

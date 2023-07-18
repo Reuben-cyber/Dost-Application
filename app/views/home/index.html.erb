@@ -1,0 +1,71 @@
+<html>
+<style>
+table, td, th {
+  border: 1px solid;
+}
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+}
+.capi{
+  text-transform: uppercase;
+}
+button {
+    width:30%;
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    padding: 13px 0;
+    cursor: pointer;
+    background: green;
+    margin-left:2vw;
+}
+button:hover {
+    background: #1877f2;
+}
+</style>
+<link rel="stylesheet" href="signup.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<br>
+<br>
+<div style="margin-left:15vw;margin-right:15vw;">
+<center>
+<h1 class="capi">Hello, <%=current_user.name%>! FILL YOUR INTEREST </h1>
+<br>
+<div style="border:black; border-width:2px; border-style:solid;">
+<%= form_with(model: @home, local: true) do |f| %>
+  <div class="form-group">
+  <label for="desc" style="font-size:1.5vw">Choose Your Category Of Interest</label><br>
+  <%= f.select :interest_id, Interest.all.map { |t| [t.name,t.id]}, {} %>
+    </div>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div class="form-group">
+  <%= f.select :category_id, Category.all.map { |t| [t.name,t.id]}, {} %>
+  </div>
+  <div class="form-group">
+  <button onclick= "<%=f.submit %>Save</button>
+  </div>
+  <% end %>
+  </div>
+  <br>
+<h2>Your Interests</h2>
+<table>   
+       <tr>   
+        <th>Interest</th>  
+        <th>Description</th>
+      </tr>   
+      <% Home.where(user_id:current_user.id).find_each do |home| %>
+          <tr>   
+            <td><%= home.interest.name %></td>   
+            <td><%= home.category.name%></td>  
+            </tr>
+            <% end %>
+</table> 
+</div>
+</center>
+
+
